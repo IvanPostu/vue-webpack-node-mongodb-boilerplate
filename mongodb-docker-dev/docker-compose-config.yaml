@@ -1,0 +1,19 @@
+version: "3.0"
+
+services:
+  mongodb:
+    container_name: "mongo_container"
+    build:
+      context: .
+      dockerfile: "mongodb.Dockerfile"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: qwerty
+      MONGODB_DATABASE: appDB
+      MONGODB_USERNAME: user
+      MONGODB_PASSWORD: password
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - "27017:27017"
