@@ -1,9 +1,18 @@
 const express = require("express");
 // const models = require("../datasource/models");
+const expressWinston = require("express-winston");
 const router = require("../routes/createRouter")();
 
 module.exports = ({ logger, models }) => {
   return express()
+    .use(
+      expressWinston.logger({
+        winstonInstance: logger,
+        msg:
+          "{{res.statusCode}} {{req.method}} {{req.url}} {{res.responseTime}}ms",
+        meta: false,
+      })
+    )
     .use(express.urlencoded({ extended: true }))
     .use(
       express.json({
@@ -19,8 +28,6 @@ module.exports = ({ logger, models }) => {
       req.base = `${req.protocol}://${req.get("host")}`;
       req.logger = logger;
       req.models = models;
-
-      logger.info(`${req.method} request from: ${req.ip} to ${req.url}`);
 
       return next();
     })
