@@ -79,7 +79,7 @@
   "editor.fontSize": 13,
   "editor.fontFamily": "'Fira Code Medium', 'Consolas', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
   "editor.letterSpacing": 0.1,

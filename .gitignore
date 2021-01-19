@@ -3,3 +3,4 @@ mongodb-docker-dev/mongo-volume
 TODO.txt
 *.log
 logs
+build

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  
+  "include": ["src/**/*", "__tests__/**/*"],
+  "exclude": ["node_modules", "public", ".cache", "dist", "build"],
+  "typeAcquisition": {
+    "include": ["jest"]
+  }
+}

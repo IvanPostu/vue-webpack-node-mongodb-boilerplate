@@ -1,3 +1,4 @@
+const path = require("path");
 const winston = require("winston");
 const { combine, timestamp, label, printf } = winston.format;
 
@@ -6,12 +7,10 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const logger = winston.createLogger({
-  level: "debug",
-  format: winston.format.json(),
   transports: [
     new winston.transports.File({
       name: "error-file",
-      filename: "logs/logfile.log",
+      filename: path.join(__dirname, "/../logs/logfile.log"),
       level: "error",
       handleExceptions: true,
       humanReadableUnhandledException: true,

@@ -1,10 +1,12 @@
-const PORT = process.env.PORT || 8000;
+require("dotenv").config();
 
 const logger = require("./logger");
 const { connectToMongoDB } = require("./datasource/connector");
 const models = require("./datasource/models");
 const server = require("http").createServer();
 const app = require("./app/createExpressApp")({ logger, models });
+
+const PORT = process.env.PORT || 8000;
 
 async function main() {
   try {
