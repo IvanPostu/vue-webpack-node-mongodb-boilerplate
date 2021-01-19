@@ -7,6 +7,7 @@ module.exports = Router({ mergeParams: true }).get(
     try {
       const users = await User.find();
       res.send(users);
+      res.status(200);
     } catch (error) {
       next(error);
     }

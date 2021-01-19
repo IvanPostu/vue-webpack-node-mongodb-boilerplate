@@ -1,11 +1,21 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const { User } = require("./datasource/models");
 const { connectToMongoDB } = require("./datasource/connector");
 const router = require("./routes/createRouter.js")();
 
 const app = express();
-app.use(bodyParser.json());
+// app.use(express.urlencoded({ extended: true }));
+app.use(
+  express.json({
+    inflate: true,
+    limit: "100kb",
+    reviver: null,
+    strict: true,
+    type: "application/json",
+    verify: undefined,
+  })
+);
+
 app.use("/api", router);
 
 async function runApplication() {
@@ -22,29 +32,3 @@ async function runApplication() {
 }
 
 runApplication();
-
-// app.get("/users", async (req, res) => {
-//   const users = await User.find();
-//   res.send(users);
-// });
-
-// app.get("/users/:id", async (req, res) => {
-//   const user = await User.findById(req.params.id);
-//   res.send(user);
-// });
-
-// app.post("/users", async (req, res) => {
-//   let user = new User(req.body);
-//   user = await user.save();
-//   res.send(user);
-// });
-
-// app.put("/users/:id", async (req, res) => {
-//   const user = User.findByIdAndUpdate(req.params.id, { $set: req.body });
-//   res.send(user);
-// });
-
-// app.delete("/users/:id", async (req, res) => {
-//   const user = User.findByIdAndDelete(req.params.id);
-//   res.send(user);
-// });

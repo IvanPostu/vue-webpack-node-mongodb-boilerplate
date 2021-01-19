@@ -1,12 +1,11 @@
 const Router = require("express").Router;
 const { User } = require("../../../datasource/models");
 
-module.exports = Router({ mergeParams: true }).post(
-  "/users",
+module.exports = Router({ mergeParams: true }).delete(
+  "/users/:id",
   async (req, res, next) => {
     try {
-      let user = new User(req.body);
-      user = await user.save();
+      const user = await User.findByIdAndDelete(req.params.id);
       res.send(user);
       res.status(201);
     } catch (error) {
