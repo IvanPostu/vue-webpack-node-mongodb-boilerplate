@@ -6,11 +6,13 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server/server.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "author": "IvanPostu",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -18,17 +20,20 @@
     "glob": "^7.1.6",
     "mongoose": "^5.11.12",
     "vue": "^2.6.12",
+    "vue-router": "^3.4.9",
     "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@types/express": "^4.17.11",
     "@types/mongoose": "^5.10.3",
     "@types/winston": "^2.4.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",

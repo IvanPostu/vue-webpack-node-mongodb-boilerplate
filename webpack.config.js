@@ -1,18 +1,19 @@
-const path = require('path');
+const path = require('path')
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-const IS_DEV = process.env.NODE_ENV === 'development';
-const IS_PROD = !IS_DEV;
+const IS_DEV = process.env.NODE_ENV === 'development'
+const IS_PROD = !IS_DEV
 
 module.exports = {
+  mode: process.env.NODE_ENV,
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[name]_chunk.js'
+    filename: '[name].bundle.js'
   },
   devtool: IS_PROD ? false : 'source-map',
   devServer: IS_DEV
@@ -23,6 +24,7 @@ module.exports = {
         inline: true,
         liveReload: false,
         writeToDisk: false,
+        historyApiFallback: true,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
@@ -62,6 +64,6 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'index.html')
     }),
-    ...(IS_DEV ? [] : [new MiniCssExtractPlugin()])
+    ...(IS_DEV ? [] : [new MiniCssExtractPlugin(), new CleanWebpackPlugin()])
   ]
-};
+}
