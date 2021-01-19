@@ -1,16 +1,11 @@
 const Router = require("express").Router;
-const { User } = require("../../../datasource/models");
 
 module.exports = Router({ mergeParams: true }).put(
   "/users/:id",
   async (req, res, next) => {
     try {
+      const { User } = req.models;
       const newUserData = req.body;
-      // console.log(newUserData);
-      // const user = await User.findByIdAndUpdate(req.params.id, {
-      //   $set: newUserData,
-
-      // });
 
       const user = await User.findOneAndUpdate(
         { _id: req.params.id },
@@ -19,8 +14,7 @@ module.exports = Router({ mergeParams: true }).put(
         function (err) {}
       );
 
-      res.send(user);
-      res.status(201);
+      res.status(201).send(user);
     } catch (error) {
       next(error);
     }

@@ -1,13 +1,12 @@
 const Router = require("express").Router;
-const { User } = require("../../../datasource/models");
 
 module.exports = Router({ mergeParams: true }).get(
   "/users",
   async (req, res, next) => {
     try {
+      const { User } = req.models;
       const users = await User.find();
-      res.send(users);
-      res.status(200);
+      res.status(200).send(users);
     } catch (error) {
       next(error);
     }

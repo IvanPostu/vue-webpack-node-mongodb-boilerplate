@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-function connectToMongoDB() {
+function connectToMongoDB({ logger }) {
   return new Promise((resolve, reject) => {
     const mongoURI = "mongodb://127.0.0.1:27017/appDB";
 
@@ -15,7 +15,8 @@ function connectToMongoDB() {
     mongoose.connect(mongoURI, options);
 
     mongoose.connection.on("connected", () => {
-      console.log("Mongoose default connection open to " + mongoURI);
+      // console.log("Mongoose default connection open to " + mongoURI);
+      logger.info("Mongoose default connection open to " + mongoURI);
       resolve();
     });
 

@@ -1,21 +1,35 @@
-const logger = (module.exports = require("winston"));
+const winston = require("winston");
+const { combine, timestamp, label, printf } = winston.format;
 
-logger.add(logger.transports.File, {
-  name: "debug-file",
-  filename: "log.log",
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} [${label}] ${level}: ${message}`;
+});
+
+const logger = winston.createLogger({
   level: "debug",
-  handleExceptions: true,
-  humanReadableUnhandledException: true,
-  exitOnError: true,
-  json: false,
-  maxsize: 104857600,
-  maxFiles: 5,
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({
+      name: "error-file",
+      filename: "logs/logfile.log",
+      level: "error",
+      handleExceptions: true,
+      humanReadableUnhandledException: true,
+      exitOnError: true,
+      json: false,
+      maxsize: 104857600,
+      maxFiles: 5,
+    }),
+    new winston.transports.Console({
+      name: "debug-console",
+      level: "debug",
+      handleExceptions: true,
+      humanReadableUnhandledException: true,
+      exitOnError: true,
+      json: false,
+      format: combine(label({ label: "DEFAULT" }), timestamp(), myFormat),
+    }),
+  ],
 });
 
-logger.add(logger.transports.Console, {
-  name: "error-console",
-  level: "error",
-  handleExceptions: true,
-  humanReadableUnhandledException: true,
-  exitOnError: true,
-});
+module.exports = logger;
